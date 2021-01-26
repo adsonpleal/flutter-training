@@ -14,6 +14,14 @@ void main() {
     expect(lion, isA<Animal>());
   });
 
+  test('Lion can have a different speed', () {
+    final lion = Lion(speed: 3);
+
+    expect(lion.walk(), 3);
+    expect(lion.walk(), 6);
+    expect(lion.walk(), 9);
+  });
+
   test('Shark should be fish and should swim', () {
     final shark = Shark();
 
