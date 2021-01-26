@@ -17,9 +17,9 @@ void main() {
   test('Shark should be fish and should swim', () {
     final shark = Shark();
 
-    expect(shark.swim(), 1);
     expect(shark.swim(), 2);
-    expect(shark.swim(), 3);
+    expect(shark.swim(), 4);
+    expect(shark.swim(), 6);
     expect(shark, isA<Fish>());
     expect(shark, isA<Animal>());
   });
