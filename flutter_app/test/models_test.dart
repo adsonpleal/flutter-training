@@ -47,4 +47,13 @@ void main() {
     expect(shark.swim(), 6);
     expect(shark.swim(), 9);
   });
+
+  test('Duck can swim and walk', () {
+    final duck = Duck(speed: 3);
+
+    expect(duck.swim(), 3);
+    expect(duck.walk(), 6);
+    expect(duck, isA<Bird>());
+    expect(duck, isA<Animal>());
+  });
 }
