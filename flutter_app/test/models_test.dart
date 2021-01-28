@@ -1,9 +1,7 @@
-
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_app/models.dart';
-void main() {
 
+void main() {
   test('Lion should be mammal and should walk', () {
     final lion = Lion();
 
@@ -12,6 +10,16 @@ void main() {
     expect(lion.walk(), 3);
     expect(lion, isA<Mammal>());
     expect(lion, isA<Animal>());
+  });
+
+  test('Dog should be mammal and should walk', () {
+    final dog = Dog();
+
+    expect(dog.walk(), 1);
+    expect(dog.walk(), 2);
+    expect(dog.walk(), 3);
+    expect(dog, isA<Mammal>());
+    expect(dog, isA<Animal>());
   });
 
   test('Lion can have a different speed', () {
@@ -30,5 +38,13 @@ void main() {
     expect(shark.swim(), 6);
     expect(shark, isA<Fish>());
     expect(shark, isA<Animal>());
+  });
+
+  test('Shark can have a different speed', () {
+    final shark = Shark(speed: 3);
+
+    expect(shark.swim(), 3);
+    expect(shark.swim(), 6);
+    expect(shark.swim(), 9);
   });
 }
