@@ -56,4 +56,15 @@ void main() {
     expect(duck, isA<Bird>());
     expect(duck, isA<Animal>());
   });
+
+    test('Duck can swim and walk', () {
+    final duck = Duck(speedWalk: 3, speedSwim: 6);
+
+    expect(duck.swim(), 6);
+    expect(duck.walk(), 9);
+    expect(duck, isA<Bird>());
+    expect(duck, isA<Animal>());
+  });
 }
+
+

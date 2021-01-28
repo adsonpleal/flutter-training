@@ -5,6 +5,10 @@ abstract class Animal {
   Animal(this.speed);
 }
 
+class Bird extends Animal {
+  Bird(int speed) : super(speed);
+}
+
 class Mammal extends Animal {
   Mammal(int speed) : super(speed);
 }
@@ -27,6 +31,10 @@ class Lion extends Mammal with Walker {
 
 class Shark extends Fish with Swimmer {
   Shark({int speed = 2}) : super(speed);
+}
+
+class Duck extends Bird with Walker, Swimmer {
+  Duck({int speed}) : super(speed);
 }
 
 class Dog extends Mammal with Walker {
