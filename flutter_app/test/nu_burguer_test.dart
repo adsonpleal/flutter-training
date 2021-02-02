@@ -21,8 +21,8 @@ void main() {
   test('processOrders should return a stream of burgers with different types',
       () {
     final Stream<Order> orders = Stream.fromIterable([
-      Order(burgerType: BurgerType.future),
-      Order(burgerType: BurgerType.meat),
+      Order(burgerMeatType: MeatType.future, burgerBreadType: BreadType.italian),
+      Order(burgerMeatType: MeatType.meat, burgerBreadType: BreadType.brioche),
     ]);
 
     final Stream<Burger> burgers = processOrders(orders);
@@ -30,8 +30,8 @@ void main() {
     expectLater(
         burgers,
         emitsInOrder([
-          Burger(type: BurgerType.future),
-          Burger(type: BurgerType.meat),
+          Burger(meatType: MeatType.future, breadType: BreadType.italian),
+          Burger(meatType: MeatType.meat, breadType: BreadType.brioche),
         ]));
   });
 }
