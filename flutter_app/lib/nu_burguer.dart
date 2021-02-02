@@ -23,6 +23,12 @@ enum BreadType { brioche, italian }
 
 Stream<Burger> processOrders(Stream<Order> orders) async* {
   await for (final order in orders) {
-    yield Burger(meatType: order.burgerMeatType, breadType: order.burgerBreadType);
+    yield Burger(
+        meatType: order.burgerMeatType, breadType: order.burgerBreadType);
   }
+}
+
+Future<BreadType> cutBread({BreadType burgerBreadType}) async {
+  await Future.delayed(Duration(seconds: 2));
+  return burgerBreadType;
 }

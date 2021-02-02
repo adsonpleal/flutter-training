@@ -44,4 +44,12 @@ void main() {
       async.elapse(Duration(seconds: 2));
     });
   });
+
+  test('brioche bread should take 4 seconds', () {
+    fakeAsync((async) {
+      cutBread(burgerBreadType: BreadType.brioche)
+          .then(expectAsync1((_) {}, count: 1));
+      async.elapse(Duration(seconds: 4));
+    });
+  });
 }
