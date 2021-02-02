@@ -1,24 +1,28 @@
 import 'package:equatable/equatable.dart';
 
 class Order {
-  final BurgerType burgerType;
+  final MeatType burgerMeatType;
+  final BreadType burgerBreadType;
 
-  Order({this.burgerType});
+  Order({this.burgerMeatType, this.burgerBreadType});
 }
 
 class Burger extends Equatable {
-  BurgerType type;
+  final MeatType meatType;
+  final BreadType breadType;
 
-  Burger({this.type});
+  Burger({this.meatType, this.breadType});
 
   @override
-  List<Object> get props => [type];
+  List<Object> get props => [meatType, breadType];
 }
 
-enum BurgerType { future, meat }
+enum MeatType { future, meat }
+
+enum BreadType { brioche, italian }
 
 Stream<Burger> processOrders(Stream<Order> orders) async* {
   await for (final order in orders) {
-    yield Burger(type: order.burgerType);
+    yield Burger(meatType: order.burgerMeatType, breadType: order.burgerBreadType);
   }
 }
