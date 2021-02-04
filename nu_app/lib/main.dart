@@ -28,13 +28,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class CalculatorButton extends StatelessWidget {
-  CalculatorButton({this.title});
+  CalculatorButton({@required this.title, this.flex = 1});
 
   final String title;
+  final int flex;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(child: Text(title), onPressed: () {});
+    return Expanded(
+      child: MaterialButton(child: Text(title), onPressed: () {}),
+      flex: flex,
+    );
   }
 }
 
@@ -69,26 +73,25 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               children: [
-                MaterialButton(child: Text('4'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('5'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('6'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('-'), onPressed: _incrementCounter),
+                CalculatorButton(title: '4'),
+                CalculatorButton(title: '5'),
+                CalculatorButton(title: '6'),
+                CalculatorButton(title: '-'),
               ],
             ),
             Row(
               children: [
-                MaterialButton(child: Text('4'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('5'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('6'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('-'), onPressed: _incrementCounter),
+                CalculatorButton(title: '1'),
+                CalculatorButton(title: '2'),
+                CalculatorButton(title: '3'),
+                CalculatorButton(title: '2'),
               ],
             ),
             Row(
               children: [
-                MaterialButton(child: Text('1'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('2'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('3'), onPressed: _incrementCounter),
-                MaterialButton(child: Text('+'), onPressed: _incrementCounter),
+                CalculatorButton(title: '0'),
+                CalculatorButton(title: ','),
+                CalculatorButton(title: '='),
               ],
             ),
           ],
