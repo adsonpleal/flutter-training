@@ -21,6 +21,17 @@ enum MeatType { future, meat }
 
 enum BreadType { brioche, italian }
 
+extension MeatTypeCookTime on MeatType {
+  int get cookTime {
+    final time = {
+      MeatType.future: 60,
+      MeatType.meat: 90,
+    }[this];
+    if (time == null) throw 'Invalid type: $this';
+    return time;
+  }
+}
+
 extension on BreadType {
   int get cutTime {
     switch (this) {
@@ -36,12 +47,21 @@ extension on BreadType {
 
 Stream<Burger> processOrders(Stream<Order> orders) async* {
   await for (final order in orders) {
+    final cookedMeat = cookMeat(order.burgerMeatType);
+    final cuttedBread = cutBread(burgerBreadType: order.burgerBreadType);
     yield Burger(
-        meatType: order.burgerMeatType, breadType: order.burgerBreadType);
+      meatType: await cookedMeat,
+      breadType: await cuttedBread,
+    );
   }
 }
 
 Future<BreadType> cutBread({BreadType burgerBreadType}) async {
   await Future.delayed(Duration(seconds: burgerBreadType.cutTime));
   return burgerBreadType;
+}
+
+Future<MeatType> cookMeat(MeatType type) async {
+  await Future.delayed(Duration(seconds: type.cookTime));
+  return type;
 }
