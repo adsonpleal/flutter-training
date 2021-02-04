@@ -36,7 +36,11 @@ class CalculatorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: MaterialButton(child: Text(title), onPressed: () {}),
+      child: MaterialButton(
+        child: Text(title),
+        onPressed: () {},
+        color: Colors.red,
+      ),
       flex: flex,
     );
   }
@@ -73,6 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               children: [
+                CalculatorButton(title: '7'),
+                CalculatorButton(title: '8'),
+                CalculatorButton(title: '9'),
+                CalculatorButton(title: 'x'),
+              ],
+            ),
+            Row(
+              children: [
                 CalculatorButton(title: '4'),
                 CalculatorButton(title: '5'),
                 CalculatorButton(title: '6'),
@@ -84,12 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 CalculatorButton(title: '1'),
                 CalculatorButton(title: '2'),
                 CalculatorButton(title: '3'),
-                CalculatorButton(title: '2'),
+                CalculatorButton(title: '+'),
               ],
             ),
             Row(
               children: [
-                CalculatorButton(title: '0'),
+                CalculatorButton(title: '0', flex: 2),
                 CalculatorButton(title: ','),
                 CalculatorButton(title: '='),
               ],
