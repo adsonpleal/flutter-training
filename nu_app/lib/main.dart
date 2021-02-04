@@ -37,9 +37,16 @@ class CalculatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: MaterialButton(
-        child: Text(title),
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.white),
+        ),
+        padding: EdgeInsets.all(30),
+        color: Colors.deepPurpleAccent,
+        shape: Border.all(
+          color: Colors.deepPurple,
+        ),
         onPressed: () {},
-        color: Colors.red,
       ),
       flex: flex,
     );
@@ -71,9 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+              ],
             ),
             Row(
               children: [
