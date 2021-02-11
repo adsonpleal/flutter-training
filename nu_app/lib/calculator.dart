@@ -42,7 +42,7 @@ class _CalculatorState extends State<Calculator> {
             ),
             Row(
               children: [
-                CalculatorButton(title: 'AC'),
+                CalculatorButton(title: 'AC', onPressed: _allClear),
                 CalculatorButton(title: '+/-'),
                 CalculatorButton(title: '%'),
                 CalculatorButton(title: '/'),
@@ -50,33 +50,33 @@ class _CalculatorState extends State<Calculator> {
             ),
             Row(
               children: [
-                NumberButton(7, onPressed: appendNumber),
-                NumberButton(8, onPressed: appendNumber),
-                NumberButton(9, onPressed: appendNumber),
+                NumberButton(7, onPressed: _appendNumber),
+                NumberButton(8, onPressed: _appendNumber),
+                NumberButton(9, onPressed: _appendNumber),
                 CalculatorButton(title: 'x'),
               ],
             ),
             Row(
               children: [
-                NumberButton(4, onPressed: appendNumber),
-                NumberButton(5, onPressed: appendNumber),
-                NumberButton(6, onPressed: appendNumber),
+                NumberButton(4, onPressed: _appendNumber),
+                NumberButton(5, onPressed: _appendNumber),
+                NumberButton(6, onPressed: _appendNumber),
                 CalculatorButton(title: '-', onPressed: () {}),
               ],
             ),
             Row(
               children: [
-                NumberButton(1, onPressed: appendNumber),
-                NumberButton(2, onPressed: appendNumber),
-                NumberButton(3, onPressed: appendNumber),
-                CalculatorButton(title: '+'),
+                NumberButton(1, onPressed: _appendNumber),
+                NumberButton(2, onPressed: _appendNumber),
+                NumberButton(3, onPressed: _appendNumber),
+                CalculatorButton(title: '+', onPressed: _sum,),
               ],
             ),
             Row(
               children: [
-                NumberButton(0, flex: 2, onPressed: appendNumber),
+                NumberButton(0, flex: 2, onPressed: _appendNumber),
                 CalculatorButton(title: ','),
-                CalculatorButton(title: '='),
+                CalculatorButton(title: '=', onPressed: _process),
               ],
             ),
           ],
@@ -85,7 +85,42 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  void appendNumber(int number) {
+  void _sum() {
+    _operation = (int v1,int v2) => v1 + v2;
+    _number1 = int.parse(_displayText);
+
+    setState(() {
+        _displayText = '0';
+    });
+  }
+
+  void _process() {
+    if (_operation != null) {
+      final newValue = _operation(_number1, int.parse(_displayText));
+
+      _clearRegisters();
+
+      setState(() {
+          _displayText = newValue.toString();
+      });
+    }
+  }
+
+  void _clearRegisters() {
+    _number1 = null;
+    _number2 = null;
+    _operation = null;
+  }
+
+  void _allClear() {
+    _clearRegisters();
+
+    setState(() {
+        _displayText = '0';
+    });
+  }
+
+  void _appendNumber(int number) {
     setState(() {
       final newNumberStr = _displayText + number.toString();
       final newNumber = int.parse(newNumberStr);
