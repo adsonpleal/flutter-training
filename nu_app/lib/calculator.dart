@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/calculator_button.dart';
+import 'widgets/number_button.dart';
 
 class Calculator extends StatefulWidget {
   Calculator({Key key, this.title}) : super(key: key);
@@ -11,20 +12,14 @@ class Calculator extends StatefulWidget {
   _CalculatorState createState() => _CalculatorState();
 }
 
+typedef Operation = int Function(int, int);
+
 class _CalculatorState extends State<Calculator> {
-  int _displayText = 0;
+  int _number1;
+  int _number2;
+  Operation _operation;
 
-  void _incrementCounter() {
-    setState(() {
-      _displayText++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _displayText--;
-    });
-  }
+  String _displayText = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +29,7 @@ class _CalculatorState extends State<Calculator> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -55,31 +50,31 @@ class _CalculatorState extends State<Calculator> {
             ),
             Row(
               children: [
-                CalculatorButton(title: '7'),
-                CalculatorButton(title: '8'),
-                CalculatorButton(title: '9'),
+                NumberButton(7, onPressed: appendNumber),
+                NumberButton(8, onPressed: appendNumber),
+                NumberButton(9, onPressed: appendNumber),
                 CalculatorButton(title: 'x'),
               ],
             ),
             Row(
               children: [
-                CalculatorButton(title: '4'),
-                CalculatorButton(title: '5'),
-                CalculatorButton(title: '6'),
-                CalculatorButton(title: '-', onPressed: _decrementCounter),
+                NumberButton(4, onPressed: appendNumber),
+                NumberButton(5, onPressed: appendNumber),
+                NumberButton(6, onPressed: appendNumber),
+                CalculatorButton(title: '-', onPressed: () {}),
               ],
             ),
             Row(
               children: [
-                CalculatorButton(title: '1'),
-                CalculatorButton(title: '2'),
-                CalculatorButton(title: '3'),
-                CalculatorButton(title: '+', onPressed: _incrementCounter),
+                NumberButton(1, onPressed: appendNumber),
+                NumberButton(2, onPressed: appendNumber),
+                NumberButton(3, onPressed: appendNumber),
+                CalculatorButton(title: '+'),
               ],
             ),
             Row(
               children: [
-                CalculatorButton(title: '0', flex: 2),
+                NumberButton(0, flex: 2, onPressed: appendNumber),
                 CalculatorButton(title: ','),
                 CalculatorButton(title: '='),
               ],
@@ -89,4 +84,14 @@ class _CalculatorState extends State<Calculator> {
       ),
     );
   }
+
+  void appendNumber(int number) {
+    setState(() {
+      final newNumberStr = _displayText + number.toString();
+      final newNumber = int.parse(newNumberStr);
+
+      _displayText = newNumber.toString();
+    });
+  }
+
 }
