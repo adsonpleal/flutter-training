@@ -12,17 +12,17 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-  int _counter = 0;
+  int _displayText = 0;
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      _displayText++;
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      _counter--;
+      _displayText--;
     });
   }
 
@@ -40,9 +40,17 @@ class _CalculatorState extends State<Calculator> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '$_counter',
+                  '$_displayText',
                   style: Theme.of(context).textTheme.headline2,
                 ),
+              ],
+            ),
+            Row(
+              children: [
+                CalculatorButton(title: 'AC'),
+                CalculatorButton(title: '+/-'),
+                CalculatorButton(title: '%'),
+                CalculatorButton(title: '/'),
               ],
             ),
             Row(
@@ -58,7 +66,7 @@ class _CalculatorState extends State<Calculator> {
                 CalculatorButton(title: '4'),
                 CalculatorButton(title: '5'),
                 CalculatorButton(title: '6'),
-                CalculatorButton(title: '-'),
+                CalculatorButton(title: '-', onPressed: _decrementCounter),
               ],
             ),
             Row(
@@ -66,7 +74,7 @@ class _CalculatorState extends State<Calculator> {
                 CalculatorButton(title: '1'),
                 CalculatorButton(title: '2'),
                 CalculatorButton(title: '3'),
-                CalculatorButton(title: '+'),
+                CalculatorButton(title: '+', onPressed: _incrementCounter),
               ],
             ),
             Row(

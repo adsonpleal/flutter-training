@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CalculatorButton extends StatelessWidget {
-  CalculatorButton({@required this.title, this.flex = 1});
+  CalculatorButton({@required this.title, this.flex = 1, this.onPressed});
 
   final String title;
   final int flex;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CalculatorButton extends StatelessWidget {
         shape: Border.all(
           color: Colors.deepPurple,
         ),
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
       ),
       flex: flex,
     );
