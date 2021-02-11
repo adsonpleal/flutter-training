@@ -7,5 +7,9 @@ class NumberButton extends CalculatorButton {
     int number, {
     int flex = 1,
     NumberCallback onPressed,
-  }) : super(title: number.toString(), flex: flex, onPressed: () => onPressed(number));
+  }) : super(
+          title: number.toString(),
+          flex: flex,
+          onPressed: () => onPressed(number),
+        );
 }
