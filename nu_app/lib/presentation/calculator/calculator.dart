@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/calculator_button.dart';
-import 'widgets/number_button.dart';
+import '../../widgets/calculator_button.dart';
+import '../../widgets/number_button.dart';
+import '../../extensions/double_extension.dart';
 
 class Calculator extends StatefulWidget {
   Calculator({Key key, this.title}) : super(key: key);
@@ -159,9 +160,4 @@ class _CalculatorState extends State<Calculator> {
       _displayText = newNumber.asDisplayString;
     });
   }
-}
-
-extension on double {
-  String get asDisplayString =>
-      truncateToDouble() == this ? toStringAsFixed(0) : this.toString();
 }
