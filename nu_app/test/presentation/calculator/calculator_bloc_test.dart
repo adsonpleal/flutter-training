@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nu_app/presentation/calculator/calculator_bloc.dart';
+import 'package:nu_app/presentation/calculator/calculator_event.dart';
 
 void main() {
   blocTest(
@@ -28,5 +29,16 @@ void main() {
       bloc.add(CalculatorEvent.toggleSign());
     },
     expect: ['-1000', '1000'],
+  );
+
+    blocTest(
+    'should sum a number on number event',
+    build: () => CalculatorBloc.test('1000'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.sum());
+      bloc.add(CalculatorEvent.number(1));
+      bloc.add(CalculatorEvent.process());
+    },
+    expect: ['0', '1', '1001'],
   );
 }
