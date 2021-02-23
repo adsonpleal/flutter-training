@@ -23,9 +23,6 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -41,9 +38,8 @@ class _CalculatorState extends State<Calculator> {
             ),
             Row(
               children: [
-                CalculatorButton(title: 'AC', onPressed: _allClear),
-                CalculatorButton(title: '+/-'),
-                CalculatorButton(title: '%'),
+                CalculatorButton(title: 'AC', onPressed: _allClear, flex: 2),
+                CalculatorButton(title: '+/-', onPressed: _toggleSign),
                 CalculatorButton(title: '/', onPressed: _divide),
               ],
             ),
@@ -77,7 +73,7 @@ class _CalculatorState extends State<Calculator> {
             Row(
               children: [
                 NumberButton(0, flex: 2, onPressed: _appendNumber),
-                CalculatorButton(title: ','),
+                CalculatorButton(title: '.', onPressed: _appendDot),
                 CalculatorButton(title: '=', onPressed: _process),
               ],
             ),
@@ -87,23 +83,31 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
+  void _appendDot() {
+    if (!_displayText.contains('.')) {
+      setState(() {
+        _displayText += '.';
+      });
+    }
+  }
+
   void _sum() {
-    _operation = (double v1, double v2) => v1 + v2;
+    _operation = (v1, v2) => v1 + v2;
     _compute();
   }
 
   void _subtract() {
-    _operation = (double v1, double v2) => v1 - v2;
+    _operation = (v1, v2) => v1 - v2;
     _compute();
   }
 
   void _multiply() {
-    _operation = (double v1, double v2) => v1 * v2;
+    _operation = (v1, v2) => v1 * v2;
     _compute();
   }
 
   void _divide() {
-    _operation = (double v1, double v2) => v1 * v2;
+    _operation = (v1, v2) => v1 / v2;
     _compute();
   }
 
@@ -122,7 +126,7 @@ class _CalculatorState extends State<Calculator> {
       _clearRegisters();
 
       setState(() {
-        _displayText = newValue.toString();
+        _displayText = newValue.asDisplayString;
       });
     }
   }
@@ -140,12 +144,24 @@ class _CalculatorState extends State<Calculator> {
     });
   }
 
+  void _toggleSign() {
+    setState(() {
+      final newNumber = double.parse(_displayText) * -1;
+      _displayText = newNumber.asDisplayString;
+    });
+  }
+
   void _appendNumber(int number) {
     setState(() {
       final newNumberStr = _displayText + number.toString();
       final newNumber = double.parse(newNumberStr);
 
-      _displayText = newNumber.toString();
+      _displayText = newNumber.asDisplayString;
     });
   }
+}
+
+extension on double {
+  String get asDisplayString =>
+      truncateToDouble() == this ? toStringAsFixed(0) : this.toString();
 }
