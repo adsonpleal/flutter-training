@@ -32,7 +32,7 @@ void main() {
   );
 
     blocTest(
-    'should sum a number on number event',
+    'should sum a number on sum event',
     build: () => CalculatorBloc.test('1000'),
     act: (bloc) {
       bloc.add(CalculatorEvent.sum());
@@ -40,5 +40,16 @@ void main() {
       bloc.add(CalculatorEvent.process());
     },
     expect: ['0', '1', '1001'],
+  );
+
+    blocTest(
+    'should multiply a number on multiply event',
+    build: () => CalculatorBloc.test('1000'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.multiply());
+      bloc.add(CalculatorEvent.number(2));
+      bloc.add(CalculatorEvent.process());
+    },
+    expect: ['0', '2', '2000'],
   );
 }

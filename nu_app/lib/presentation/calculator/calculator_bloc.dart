@@ -6,6 +6,8 @@ import 'calculator_event.dart';
 class CalculatorBloc extends Bloc<CalculatorEvent, String> {
   CalculatorBloc() : super('0');
 
+  double bufferizedNumber = 0;
+
   @visibleForTesting
   CalculatorBloc.test(String initialState) : super(initialState);
 
@@ -18,6 +20,23 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
     if (event is ToggleSignEvent) {
       yield toggleSign();
     }
+
+    if (event is SumEvent) {
+      yield sum();
+    }
+
+    if (event is ProcessEvent) {
+      yield process();
+    }
+  }
+
+  String process() {
+    return (bufferizedNumber + double.parse(state)).asDisplayString;
+  }
+
+  String sum() {
+    bufferizedNumber = double.parse(state);
+    return '0';
   }
 
   String appendNumber(int number) {
