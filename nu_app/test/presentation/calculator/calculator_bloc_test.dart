@@ -31,7 +31,7 @@ void main() {
     expect: ['-1000', '1000'],
   );
 
-    blocTest(
+  blocTest(
     'should sum a number on sum event',
     build: () => CalculatorBloc.test('1000'),
     act: (bloc) {
@@ -42,7 +42,7 @@ void main() {
     expect: ['0', '1', '1001'],
   );
 
-    blocTest(
+  blocTest(
     'should multiply a number on multiply event',
     build: () => CalculatorBloc.test('1000'),
     act: (bloc) {
@@ -51,5 +51,16 @@ void main() {
       bloc.add(CalculatorEvent.process());
     },
     expect: ['0', '2', '2000'],
+  );
+
+  blocTest(
+    'should divide a number on divide event',
+    build: () => CalculatorBloc.test('1000'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.devide());
+      bloc.add(CalculatorEvent.number(2));
+      bloc.add(CalculatorEvent.process());
+    },
+    expect: ['0', '2', '500'],
   );
 }

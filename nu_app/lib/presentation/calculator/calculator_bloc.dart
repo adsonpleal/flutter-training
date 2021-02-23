@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../extensions/double_extension.dart';
 import 'calculator_event.dart';
 
+typedef Operation = double Function(double, double);
+
 class CalculatorBloc extends Bloc<CalculatorEvent, String> {
   CalculatorBloc() : super('0');
 
   double bufferizedNumber = 0;
+  Operation operation;
 
   @visibleForTesting
   CalculatorBloc.test(String initialState) : super(initialState);
@@ -28,15 +31,19 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
     if (event is ProcessEvent) {
       yield process();
     }
+
+    if (event is MultiplyEvent) {
+      yield multiply();
+    }
   }
 
   String process() {
-    return (bufferizedNumber + double.parse(state)).asDisplayString;
+    return operation(bufferizedNumber, double.parse(state)).asDisplayString;
   }
 
   String sum() {
-    bufferizedNumber = double.parse(state);
-    return '0';
+    operation = (v1, v2) => v1 + v2;
+    return _compute();
   }
 
   String appendNumber(int number) {
@@ -49,5 +56,15 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
   String toggleSign() {
     final newNumber = double.parse(state) * -1;
     return newNumber.asDisplayString;
+  }
+
+  String multiply() {
+    operation = (v1, v2) => v1 * v2;
+    return _compute();
+  }
+
+  String _compute() {
+    bufferizedNumber = double.parse(state);
+    return '0';
   }
 }

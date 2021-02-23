@@ -3,6 +3,11 @@ class CalculatorEvent {
   factory CalculatorEvent.toggleSign() = ToggleSignEvent._;
   factory CalculatorEvent.sum() = SumEvent._;
   factory CalculatorEvent.process() = ProcessEvent._;
+  factory CalculatorEvent.multiply() = MultiplyEvent._;
+}
+
+class MultiplyEvent implements CalculatorEvent {
+  MultiplyEvent._();
 }
 
 class NumberEvent implements CalculatorEvent {
