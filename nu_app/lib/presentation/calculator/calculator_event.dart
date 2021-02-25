@@ -4,6 +4,11 @@ class CalculatorEvent {
   factory CalculatorEvent.sum() = SumEvent._;
   factory CalculatorEvent.process() = ProcessEvent._;
   factory CalculatorEvent.multiply() = MultiplyEvent._;
+  factory CalculatorEvent.divide() = DivideEvent._;
+}
+
+class DivideEvent implements CalculatorEvent {
+  DivideEvent._();
 }
 
 class MultiplyEvent implements CalculatorEvent {

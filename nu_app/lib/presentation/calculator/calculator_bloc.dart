@@ -24,26 +24,23 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
       yield toggleSign();
     }
 
-    if (event is SumEvent) {
-      yield sum();
-    }
-
     if (event is ProcessEvent) {
       yield process();
     }
 
+    if (event is SumEvent) {
+      yield sum();
+    }
     if (event is MultiplyEvent) {
       yield multiply();
+    }
+    if (event is DivideEvent) {
+      yield divide();
     }
   }
 
   String process() {
     return operation(bufferizedNumber, double.parse(state)).asDisplayString;
-  }
-
-  String sum() {
-    operation = (v1, v2) => v1 + v2;
-    return _compute();
   }
 
   String appendNumber(int number) {
@@ -58,8 +55,18 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
     return newNumber.asDisplayString;
   }
 
+  String sum() {
+    operation = (v1, v2) => v1 + v2;
+    return _compute();
+  }
+
   String multiply() {
     operation = (v1, v2) => v1 * v2;
+    return _compute();
+  }
+
+  String divide() {
+    operation = (v1, v2) => v1 / v2;
     return _compute();
   }
 

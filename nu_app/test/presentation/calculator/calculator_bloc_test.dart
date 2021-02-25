@@ -57,7 +57,7 @@ void main() {
     'should divide a number on divide event',
     build: () => CalculatorBloc.test('1000'),
     act: (bloc) {
-      bloc.add(CalculatorEvent.devide());
+      bloc.add(CalculatorEvent.divide());
       bloc.add(CalculatorEvent.number(2));
       bloc.add(CalculatorEvent.process());
     },
