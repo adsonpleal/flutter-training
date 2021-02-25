@@ -38,6 +38,17 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
       operation = event.operation;
       yield _compute();
     }
+
+    if (event is AppendDotEvent) {
+      yield _appendDot();
+    }
+  }
+
+  String _appendDot() {
+    if (!state.contains('.')) {
+      return state + '.';
+    }
+    return state;
   }
 
   String clear() {

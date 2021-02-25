@@ -9,6 +9,7 @@ class CalculatorEvent {
   factory CalculatorEvent.multiply() = MultiplyEvent._;
   factory CalculatorEvent.divide() = DivideEvent._;
   factory CalculatorEvent.clear() = ClearEvent._;
+  factory CalculatorEvent.appendDot() = AppendDotEvent._;
 }
 
 class DivideEvent extends OperationEvent {
@@ -17,6 +18,10 @@ class DivideEvent extends OperationEvent {
 
 class MultiplyEvent extends OperationEvent {
   MultiplyEvent._() : super._((v1, v2) => v1 * v2);
+}
+
+class AppendDotEvent implements CalculatorEvent {
+  AppendDotEvent._();
 }
 
 class NumberEvent implements CalculatorEvent {
