@@ -85,4 +85,15 @@ void main() {
     },
     expect: ['0'],
   );
+
+    blocTest(
+    'should append a dot symbol on append dot event',
+    build: () => CalculatorBloc.test('1'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.appendDot());
+      bloc.add(CalculatorEvent.number(5));
+      bloc.add(CalculatorEvent.appendDot());
+    },
+    expect: ['1.', '1.5'],
+  );
 }

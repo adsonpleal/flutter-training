@@ -5,8 +5,10 @@ import 'calculator_event.dart';
 
 typedef Operation = double Function(double, double);
 
+const _initialValue = '0';
+
 class CalculatorBloc extends Bloc<CalculatorEvent, String> {
-  CalculatorBloc() : super('0');
+  CalculatorBloc() : super(_initialValue);
 
   double bufferizedNumber = 0;
   Operation operation;
@@ -28,10 +30,18 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
       yield process();
     }
 
+    if (event is ClearEvent) {
+      yield clear();
+    }
+
     if (event is OperationEvent) {
       operation = event.operation;
       yield _compute();
     }
+  }
+
+  String clear() {
+    return _initialValue;
   }
 
   String process() {
@@ -52,6 +62,6 @@ class CalculatorBloc extends Bloc<CalculatorEvent, String> {
 
   String _compute() {
     bufferizedNumber = double.parse(state);
-    return '0';
+    return _initialValue;
   }
 }

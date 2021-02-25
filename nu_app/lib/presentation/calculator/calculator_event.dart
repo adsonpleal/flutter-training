@@ -8,6 +8,7 @@ class CalculatorEvent {
   factory CalculatorEvent.process() = ProcessEvent._;
   factory CalculatorEvent.multiply() = MultiplyEvent._;
   factory CalculatorEvent.divide() = DivideEvent._;
+  factory CalculatorEvent.clear() = ClearEvent._;
 }
 
 class DivideEvent extends OperationEvent {
@@ -44,4 +45,8 @@ class OperationEvent implements CalculatorEvent {
   OperationEvent._(this.operation);
 
   final Operation operation;
+}
+
+class ClearEvent implements CalculatorEvent {
+  ClearEvent._();
 }
