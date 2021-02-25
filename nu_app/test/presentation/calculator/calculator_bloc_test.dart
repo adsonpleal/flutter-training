@@ -63,4 +63,16 @@ void main() {
     },
     expect: ['0', '2', '500'],
   );
+
+    blocTest(
+    'should subtract a number on subtract event',
+    build: () => CalculatorBloc.test('100'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.subtract());
+      bloc.add(CalculatorEvent.number(5));
+      bloc.add(CalculatorEvent.number(0));
+      bloc.add(CalculatorEvent.process());
+    },
+    expect: ['0', '5', '50' '50'],
+  );
 }

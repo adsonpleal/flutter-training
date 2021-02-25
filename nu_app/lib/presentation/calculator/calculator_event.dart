@@ -1,3 +1,5 @@
+import 'package:nu_app/presentation/calculator/calculator.dart';
+
 class CalculatorEvent {
   factory CalculatorEvent.number(int number) = NumberEvent._;
   factory CalculatorEvent.toggleSign() = ToggleSignEvent._;
@@ -7,12 +9,12 @@ class CalculatorEvent {
   factory CalculatorEvent.divide() = DivideEvent._;
 }
 
-class DivideEvent implements CalculatorEvent {
-  DivideEvent._();
+class DivideEvent extends OperationEvent {
+  DivideEvent._() : super._((v1, v2) => v1 / v2);
 }
 
-class MultiplyEvent implements CalculatorEvent {
-  MultiplyEvent._();
+class MultiplyEvent extends OperationEvent {
+  MultiplyEvent._() : super._((v1, v2) => v1 * v2);
 }
 
 class NumberEvent implements CalculatorEvent {
@@ -25,10 +27,16 @@ class ToggleSignEvent implements CalculatorEvent {
   ToggleSignEvent._();
 }
 
-class SumEvent implements CalculatorEvent {
-  SumEvent._();
+class SumEvent extends OperationEvent {
+  SumEvent._() : super._((v1, v2) => v1 + v2);
 }
 
 class ProcessEvent implements CalculatorEvent {
   ProcessEvent._();
+}
+
+class OperationEvent implements CalculatorEvent {
+  OperationEvent._(this.operation);
+
+  final Operation operation;
 }

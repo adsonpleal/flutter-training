@@ -14,6 +14,6 @@ void main() {
 }
 
 void _expectOperationEvent(dynamic event) {
-  expect(event, isA(OperationEvent));
-  expect(event.operation, isA(Operation));
+  expect(event, isA<OperationEvent>());
+  expect(event.operation, isA<Operation>());
 }
