@@ -4,6 +4,7 @@ class CalculatorEvent {
   factory CalculatorEvent.number(int number) = NumberEvent._;
   factory CalculatorEvent.toggleSign() = ToggleSignEvent._;
   factory CalculatorEvent.sum() = SumEvent._;
+  factory CalculatorEvent.subtract() = SubtractEvent._;
   factory CalculatorEvent.process() = ProcessEvent._;
   factory CalculatorEvent.multiply() = MultiplyEvent._;
   factory CalculatorEvent.divide() = DivideEvent._;
@@ -29,6 +30,10 @@ class ToggleSignEvent implements CalculatorEvent {
 
 class SumEvent extends OperationEvent {
   SumEvent._() : super._((v1, v2) => v1 + v2);
+}
+
+class SubtractEvent extends OperationEvent {
+  SubtractEvent._() : super._((v1, v2) => v1 - v2);
 }
 
 class ProcessEvent implements CalculatorEvent {

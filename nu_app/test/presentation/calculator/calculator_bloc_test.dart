@@ -13,8 +13,9 @@ void main() {
       bloc.add(CalculatorEvent.number(6));
       bloc.add(CalculatorEvent.number(1));
       bloc.add(CalculatorEvent.number(7));
+      bloc.add(CalculatorEvent.number(0));
     },
-    expect: ['1', '12', '126', '1261', '12617'],
+    expect: ['1', '12', '126', '1261', '12617', '126170'],
   );
 
   test('initial state should be 0', () {
@@ -64,7 +65,7 @@ void main() {
     expect: ['0', '2', '500'],
   );
 
-    blocTest(
+  blocTest(
     'should subtract a number on subtract event',
     build: () => CalculatorBloc.test('100'),
     act: (bloc) {
@@ -73,6 +74,15 @@ void main() {
       bloc.add(CalculatorEvent.number(0));
       bloc.add(CalculatorEvent.process());
     },
-    expect: ['0', '5', '50' '50'],
+    expect: ['0', '5', '50'],
+  );
+
+  blocTest(
+    'should clear a number on ac event',
+    build: () => CalculatorBloc.test('100'),
+    act: (bloc) {
+      bloc.add(CalculatorEvent.clear());
+    },
+    expect: ['0'],
   );
 }
