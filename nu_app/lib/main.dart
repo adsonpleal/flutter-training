@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocProvider<CalculatorBloc>(
-        child: Calculator(title: 'Calculator'),
-        create: (context) => CalculatorBloc(),),
+        child: Calculator(),
+        create: (context) => CalculatorBloc(),
+      ),
     );
   }
 }

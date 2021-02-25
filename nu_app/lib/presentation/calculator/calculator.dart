@@ -4,15 +4,13 @@ import 'package:nu_app/presentation/calculator/calculator_event.dart';
 
 import '../../widgets/calculator_button.dart';
 import '../../widgets/number_button.dart';
-import '../../extensions/double_extension.dart';
 import 'calculator_bloc.dart';
 
 typedef Operation = double Function(double, double);
 
 class Calculator extends StatelessWidget {
-  Calculator({Key key, this.title}) : super(key: key);
+  Calculator({Key key}) : super(key: key);
 
-  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -41,25 +39,25 @@ class Calculator extends StatelessWidget {
             ),
             Row(
               children: [
-                NumberButton(7, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(8, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(9, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
+                NumberButton(7),
+                NumberButton(8),
+                NumberButton(9),
                 CalculatorButton(title: 'x', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.multiply())),
               ],
             ),
             Row(
               children: [
-                NumberButton(4, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(5, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(6, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
+                NumberButton(4),
+                NumberButton(5),
+                NumberButton(6),
                 CalculatorButton(title: '-', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.subtract())),
               ],
             ),
             Row(
               children: [
-                NumberButton(1, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(2, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
-                NumberButton(3, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
+                NumberButton(1),
+                NumberButton(2),
+                NumberButton(3),
                 CalculatorButton(
                   title: '+',
                   onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.sum()),
@@ -68,7 +66,7 @@ class Calculator extends StatelessWidget {
             ),
             Row(
               children: [
-                NumberButton(0, flex: 2, onPressed: (number) => context.read<CalculatorBloc>().add(CalculatorEvent.number(number))),
+                NumberButton(0, flex: 2),
                 CalculatorButton(title: '.', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.appendDot())),
                 CalculatorButton(title: '=', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.process())),
               ],
