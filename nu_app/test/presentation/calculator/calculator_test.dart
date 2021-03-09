@@ -44,26 +44,66 @@ void main() {
     );
   }
 
-  Future pressNumberButton(WidgetTester tester, CalculatorBloc bloc, int number) async {
+  Future pressNumberButton(
+      WidgetTester tester, CalculatorBloc bloc, int number) async {
     await tester.tap(find.text(number.toString()));
 
     verify(bloc.add(CalculatorEvent.number(number))).called(1);
- }
+  }
 
-  testWidgets('calculator should have only one elem for each number from 0 to 9', (tester) async {
+  testWidgets(
+      'calculator should have only one elem for each number from 0 to 9',
+      (tester) async {
     await startWidget(tester);
 
-    for(final elem in Iterable<int>.generate(9)) {
+    for (final elem in Iterable<int>.generate(9)) {
       expect(find.text(elem.toString()), findsOneWidget);
     }
   });
 
-  testWidgets('on all numbers from 0 to 9 click should add number event to bloc', (tester) async {
+  testWidgets(
+      'on all numbers from 0 to 9 click should add number event to bloc',
+      (tester) async {
     await startWidget(tester);
 
-    for(final elem in Iterable<int>.generate(9)) {
+    for (final elem in Iterable<int>.generate(9)) {
       await pressNumberButton(tester, bloc, elem);
     }
+  });
+
+  group('depois a gente decide', () {
+    testWidgets('on a AC click, should add a clear to bloc', (tester) async {
+      await startWidget(tester);
+
+      await tester.tap(find.text('AC'));
+
+      verify(bloc.add(argThat(isA<ClearEvent>()))).called(1);
+    });
+
+    testWidgets('on a +/- click, should add a ToggleSign to bloc',
+        (tester) async {
+      await startWidget(tester);
+
+      await tester.tap(find.text('+/-'));
+
+      verify(bloc.add(argThat(isA<ToggleSignEvent>()))).called(1);
+    });
+
+    testWidgets('on a = click, should add a process to bloc', (tester) async {
+      await startWidget(tester);
+
+      await tester.tap(find.text('='));
+
+      verify(bloc.add(argThat(isA<ProcessEvent>()))).called(1);
+    });
+
+    testWidgets('on a . click, should add a AppendDot to bloc', (tester) async {
+      await startWidget(tester);
+
+      await tester.tap(find.text('.'));
+
+      verify(bloc.add(argThat(isA<AppendDotEvent>()))).called(1);
+    });
   });
 
   group('Operation taps', () {
@@ -75,7 +115,8 @@ void main() {
       verify(bloc.add(argThat(isA<SumEvent>()))).called(1);
     });
 
-    testWidgets('on a - click, should add a SubtractEvent to bloc', (tester) async {
+    testWidgets('on a - click, should add a SubtractEvent to bloc',
+        (tester) async {
       await startWidget(tester);
 
       await tester.tap(find.text('-'));
@@ -83,12 +124,22 @@ void main() {
       verify(bloc.add(argThat(isA<SubtractEvent>()))).called(1);
     });
 
-    testWidgets('on a x click, should add a MultiplyEvent to bloc', (tester) async {
+    testWidgets('on a x click, should add a MultiplyEvent to bloc',
+        (tester) async {
       await startWidget(tester);
 
       await tester.tap(find.text('x'));
 
       verify(bloc.add(argThat(isA<MultiplyEvent>()))).called(1);
+    });
+
+    testWidgets('on a / click, should add a DivideEvent to bloc',
+        (tester) async {
+      await startWidget(tester);
+
+      await tester.tap(find.text('/'));
+
+      verify(bloc.add(argThat(isA<DivideEvent>()))).called(1);
     });
   });
 
@@ -104,4 +155,3 @@ void main() {
     },
   );
 }
-
