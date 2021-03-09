@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:nu_app/presentation/calculator/calculator.dart';
 
 class CalculatorEvent {
   factory CalculatorEvent.number(int number) = NumberEvent._;
   factory CalculatorEvent.toggleSign() = ToggleSignEvent._;
+  factory CalculatorEvent.process() = ProcessEvent._;
   factory CalculatorEvent.sum() = SumEvent._;
   factory CalculatorEvent.subtract() = SubtractEvent._;
-  factory CalculatorEvent.process() = ProcessEvent._;
   factory CalculatorEvent.multiply() = MultiplyEvent._;
   factory CalculatorEvent.divide() = DivideEvent._;
   factory CalculatorEvent.clear() = ClearEvent._;
@@ -21,17 +22,20 @@ class MultiplyEvent extends OperationEvent {
 }
 
 class AppendDotEvent implements CalculatorEvent {
-  AppendDotEvent._();
+  const AppendDotEvent._();
 }
 
-class NumberEvent implements CalculatorEvent {
+class NumberEvent extends Equatable implements CalculatorEvent {
   NumberEvent._(this.number);
 
   final int number;
+
+  @override
+  List<Object> get props => [number];
 }
 
 class ToggleSignEvent implements CalculatorEvent {
-  ToggleSignEvent._();
+  const ToggleSignEvent._();
 }
 
 class SumEvent extends OperationEvent {
@@ -43,13 +47,16 @@ class SubtractEvent extends OperationEvent {
 }
 
 class ProcessEvent implements CalculatorEvent {
-  ProcessEvent._();
+  const ProcessEvent._();
 }
 
-class OperationEvent implements CalculatorEvent {
+class OperationEvent extends Equatable implements CalculatorEvent {
   OperationEvent._(this.operation);
 
   final Operation operation;
+
+  @override
+  List<Object> get props => [operation];
 }
 
 class ClearEvent implements CalculatorEvent {

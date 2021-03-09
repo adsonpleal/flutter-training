@@ -11,7 +11,6 @@ typedef Operation = double Function(double, double);
 class Calculator extends StatelessWidget {
   Calculator({Key key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +31,19 @@ class Calculator extends StatelessWidget {
             ),
             Row(
               children: [
-                CalculatorButton(title: 'AC', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.clear()), flex: 2),
-                CalculatorButton(title: '+/-', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.toggleSign())),
-                CalculatorButton(title: '/', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.divide())),
+                CalculatorButton(
+                  title: 'AC',
+                  onPressed: context.addEvent(CalculatorEvent.clear()),
+                  flex: 2,
+                ),
+                CalculatorButton(
+                  title: '+/-',
+                  onPressed: context.addEvent(CalculatorEvent.toggleSign()),
+                ),
+                CalculatorButton(
+                  title: '/',
+                  onPressed: context.addEvent(CalculatorEvent.divide()),
+                ),
               ],
             ),
             Row(
@@ -42,7 +51,10 @@ class Calculator extends StatelessWidget {
                 NumberButton(7),
                 NumberButton(8),
                 NumberButton(9),
-                CalculatorButton(title: 'x', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.multiply())),
+                CalculatorButton(
+                  title: 'x',
+                  onPressed: context.addEvent(CalculatorEvent.multiply()),
+                ),
               ],
             ),
             Row(
@@ -50,7 +62,10 @@ class Calculator extends StatelessWidget {
                 NumberButton(4),
                 NumberButton(5),
                 NumberButton(6),
-                CalculatorButton(title: '-', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.subtract())),
+                CalculatorButton(
+                  title: '-',
+                  onPressed: context.addEvent(CalculatorEvent.subtract()),
+                ),
               ],
             ),
             Row(
@@ -60,20 +75,32 @@ class Calculator extends StatelessWidget {
                 NumberButton(3),
                 CalculatorButton(
                   title: '+',
-                  onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.sum()),
+                  onPressed: context.addEvent(CalculatorEvent.sum()),
                 ),
               ],
             ),
             Row(
               children: [
                 NumberButton(0, flex: 2),
-                CalculatorButton(title: '.', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.appendDot())),
-                CalculatorButton(title: '=', onPressed: () => context.read<CalculatorBloc>().add(CalculatorEvent.process())),
+                CalculatorButton(
+                  title: '.',
+                  onPressed: context.addEvent(CalculatorEvent.appendDot()),
+                ),
+                CalculatorButton(
+                  title: '=',
+                  onPressed: context.addEvent(CalculatorEvent.process()),
+                ),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+extension on BuildContext {
+  VoidCallback addEvent(CalculatorEvent event) {
+    return () => read<CalculatorBloc>().add(event);
   }
 }
